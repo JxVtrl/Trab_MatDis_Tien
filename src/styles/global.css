@@ -12,7 +12,15 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+h1 {
+  font-family: 'Montserrat';
 }
+
+h2 {
+  font-family: 'Rokkitt';
+}
+
+p {
+  font-family: 'Source Sans Pro';
+}
+

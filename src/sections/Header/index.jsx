@@ -10,7 +10,7 @@ export const Header = () => {
       <AvatarGroup>
         <Avatar src={"/joao.jpeg"} />
         <Avatar src={"/marcelo.jpeg"} />
-        <Avatar src={"/matheus.jpg"} />
+        <Avatar src={""} />
       </AvatarGroup>
     </Flex>
   );
