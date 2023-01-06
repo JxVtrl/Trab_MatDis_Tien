@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Flex,
   Table,
@@ -13,19 +13,28 @@ import {
 import { useApp } from "../../context";
 
 function VariableDisplay() {
+  const { tableHeader, tableRows } = useApp();
+
+  useEffect(() => {
+    console.log("tableHeader", tableHeader);
+    console.log("tableRows", tableRows);
+  },[tableHeader, tableRows])
 
   return (
     <Flex w="100%" px="10px" borderRadius="10px">
       <TableContainer w="100%">
         <Table variant="striped" w="100%">
           <Thead>
-            <Tr>
-              <Th textAlign="center">Expressão originária</Th>
-              <Th textAlign="center">Nome da Variável</Th>
-              <Th textAlign="center">Valor atribuído</Th>
-            </Tr>
+            {"tableHeader: " + tableHeader}
           </Thead>
           <Tbody>
+            {tableRows.map((row) => (
+              <Tr key={row.id}>
+                <Td>{row.id}</Td>
+                <Td>{row.type}</Td>
+                <Td>{row.expression}</Td>
+              </Tr>
+            ))}
           </Tbody>
         </Table>
       </TableContainer>

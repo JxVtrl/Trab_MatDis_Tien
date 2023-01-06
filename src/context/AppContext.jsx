@@ -12,10 +12,16 @@ const AppContext = createContext();
 export function AppProvider({ children }) {
   const toast = useToast();
   const [helpDrawer, setHelpDrawer] = useState(false)
+  const [tableHeader, setTableHeader] = useState([<></>])
+  const [tableRows, setTableRows] = useState([<></>])
   
   const value = {
     setHelpDrawer,
-    helpDrawer
+    helpDrawer,
+    setTableHeader,
+    tableHeader,
+    setTableRows,
+    tableRows,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
