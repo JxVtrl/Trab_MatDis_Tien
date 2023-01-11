@@ -1,14 +1,6 @@
-import React, { useEffect, useState } from "react";
-import {
-  Flex,
-  Input,
-  Button,
-  Center,
-  Divider,
-  Text,
-  useToast,
-} from "@chakra-ui/react";
-import { QuestionOutlineIcon, InfoIcon } from "@chakra-ui/icons";
+import React from "react";
+import { Flex, Input, Button, useToast } from "@chakra-ui/react";
+import { InfoIcon } from "@chakra-ui/icons";
 import { VariableDisplay } from "../../components/VariableDisplay";
 import { useApp } from "../../context";
 import {
@@ -21,83 +13,79 @@ import {
 const MAX_VARS_TO_RENDER_TABLE = 10;
 
 export const Main = ({ onOpen }) => {
-  const [expression, setExpression] = useState("(A | B) & (!A) > B");
-  const [isTautology, setIsTautology] = useState(undefined);
-  const [explain, setExplain] = useState(false);
   const toast = useToast();
-
-  const { setTableHeader, setTableRows } = useApp();
-
-  const resetVariables = () => {
-    setIsTautology(undefined);
-    setTableRows([]);
-    setTableHeader("");
-  };
+  const {
+    setTableHeader,
+    setTableRows,
+    expression,
+    setExpression,
+    resetVariables,
+  } = useApp();
 
   const checkExpression = () => {
     resetVariables();
 
+    let row = "",
+      header = "",
+      tautology = undefined;
+
+    const vars = {};
     const order = expressionOrder(expression);
     const varList = getVariables(order);
 
     // Numero de combinações
     const combinations = Math.pow(2, varList.length);
 
-    // Prepare table header
+    // Table header
     if (varList.length < MAX_VARS_TO_RENDER_TABLE) {
-      let tableHtml = "<tr class='row'>";
+      header = "<tr class='row'>";
       for (let i = 0; i < varList.length; i += 1)
-        tableHtml += `<th>${varList[i]}</th>`;
+        header += `<th>${varList[i]}</th>`;
 
-      tableHtml += `<th>${expression}</th></tr>`;
-
-      setTableHeader(tableHtml);
+      header += `<th>${expression}</th></tr>`;
     }
+    setTableHeader(header);
 
-    const vars = {};
-    let row = "";
-
-    // Check for all possible combinations
+    /// Table body
     for (let current = 0; current < combinations; current += 1) {
       let bin = decToBin(current, varList);
 
       // Create vars object with <varName>:<value> pairs
-      for (let i = 0; i < varList.length; i += 1) {
-        vars[varList[i]] = bin[i];
-      }
+      for (let i = 0; i < varList.length; i += 1) vars[varList[i]] = bin[i];
 
       // Calculate the result
       let result = calculateExpression(order, vars);
 
       // Check if the expression is tautology
-      if (isTautology && result === 0) setIsTautology(false);
-      else setIsTautology(true);
+      tautology = !!result;
 
       // Add result to the array
-      if (varList.length < MAX_VARS_TO_RENDER_TABLE) {
+      if (varList.length < MAX_VARS_TO_RENDER_TABLE)
         row += `<tr class='row'>${varList
           .map((varName) => {
             return `<td>${vars[varName]}</td>`;
           })
           .join("")}<td>${result}</td></tr>`;
-      }
     }
     setTableRows(row);
+
+    handleTautology(tautology);
   };
 
-  const handleExplain = () => {
-    if (!isTautology)
-      toast({
-        title: "Não é Tautologia",
-        description: "A expressão digitada não é uma tautologia.",
-        status: "error",
-      });
-    else
-      toast({
-        title: "Tautologia",
-        description: "A expressão digitada é uma tautologia.",
-        status: "success",
-      });
+  const handleTautology = (isTautology) => {
+    toast(
+      isTautology
+        ? {
+            title: "Tautologia",
+            description: "A expressão digitada é uma tautologia.",
+            status: "success",
+          }
+        : {
+            title: "Não é Tautologia",
+            description: "A expressão digitada não é uma tautologia.",
+            status: "error",
+          }
+    );
   };
 
   return (
@@ -127,33 +115,6 @@ export const Main = ({ onOpen }) => {
       <Flex mt="50px">
         <VariableDisplay />
       </Flex>
-      {isTautology ? (
-        <Flex
-          onClick={handleExplain}
-          _hover={{ opacity: "0.7", cursor: "pointer" }}
-          borderRadius="10px"
-          justify="center"
-          p="20px"
-          mt="50px"
-          bgColor="#ccc"
-          w="300px"
-        >
-          <Text fontWeight="500">A expressão digitada é uma tautologia.</Text>
-        </Flex>
-      ) : isTautology === false ? (
-        <Flex
-          onClick={handleExplain}
-          _hover={{ opacity: "0.7", cursor: "pointer" }}
-          borderRadius="10px"
-          justify="center"
-          p="20px"
-          mt="50px"
-          bgColor="#ccc"
-          w="300px"
-        >
-          <Text fontWeight="500">Não é uma tautologia.</Text>
-        </Flex>
-      ) : null}
     </Flex>
   );
 };

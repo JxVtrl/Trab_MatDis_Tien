@@ -45,15 +45,18 @@ const ModalRules = ({ isOpen, onClose }) => {
                 <ListItem display="flex" align="center">
                   <Flex align="center">
                     <ListIcon as={CheckCircleIcon} color="red.500" />
-                    <Text>{
-                      "Qualquer texto escrito que contenha números."}</Text>
+                    <Text>{"(A && B) || (A') -> B"}</Text>
                   </Flex>
                 </ListItem>
 
                 <ListItem>
                   <Flex align="center">
                     <ListIcon as={WarningIcon} color="yellow.500" />
-                    <Text>{"$texto/={um pequeno texto} // Sem espaço"}</Text>
+                    <Text>
+                      {
+                        "(A ^ B) v (A') > B - Utilize & - e, | - ou, ! - negação"
+                      }
+                    </Text>
                   </Flex>
                 </ListItem>
                 <ListItem>
@@ -63,34 +66,6 @@ const ModalRules = ({ isOpen, onClose }) => {
                   </Flex>
                 </ListItem>
               </Flex>
-
-              {/* <Flex gap="10px" direction="column">
-                <Text fontWeight="bold" as="h2">
-                  Exemplos de entrada | string
-                </Text>
-                <ListItem display="flex" align="center">
-                  <Flex align="center">
-                    <ListIcon as={CheckCircleIcon} color="red.500" />
-                    <Text>{"texto /= {'Usuário'}"}</Text>
-                  </Flex>
-                </ListItem>
-                <ListItem>
-                  <Flex align="center">
-                    <ListIcon as={WarningIcon} color="yellow.500" />
-                    <Text>{"$texto/='um pequeno texto' // Sem espaço"}</Text>
-                  </Flex>
-                </ListItem>
-                <ListItem>
-                  <Flex align="center">
-                    <ListIcon as={CheckCircleIcon} color="green.500" />
-                    <Text>
-                      {
-                        "$texto /= 'Usuário' // Com espaços e entre aspas simples"
-                      }
-                    </Text>
-                  </Flex>
-                </ListItem>
-              </Flex> */}
             </Flex>
           </List>
         </ModalBody>

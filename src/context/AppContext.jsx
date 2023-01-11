@@ -12,6 +12,13 @@ export function AppProvider({ children }) {
   const [helpDrawer, setHelpDrawer] = useState(false);
   const [tableHeader, setTableHeader] = useState("");
   const [tableRows, setTableRows] = useState("");
+  const [expression, setExpression] = useState("(A | B) & (!A) > B");
+
+    const resetVariables = () => {
+      setTableRows([]);
+      setTableHeader("");
+    };
+
 
   const value = {
     setHelpDrawer,
@@ -20,6 +27,9 @@ export function AppProvider({ children }) {
     tableHeader,
     setTableRows,
     tableRows,
+    expression,
+    setExpression,
+    resetVariables,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
