@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Flex, Table, Thead, Tbody, TableContainer } from "@chakra-ui/react";
 import { useApp } from "../../context";
 import "./styles.css";

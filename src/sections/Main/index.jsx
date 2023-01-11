@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Flex, Input, Button, Center, Divider, Text } from "@chakra-ui/react";
+import {
+  Flex,
+  Input,
+  Button,
+  Center,
+  Divider,
+  Text,
+  useToast,
+} from "@chakra-ui/react";
 import { QuestionOutlineIcon, InfoIcon } from "@chakra-ui/icons";
 import { VariableDisplay } from "../../components/VariableDisplay";
 import { useApp } from "../../context";
@@ -15,6 +23,8 @@ const MAX_VARS_TO_RENDER_TABLE = 10;
 export const Main = ({ onOpen }) => {
   const [expression, setExpression] = useState("(A | B) & (!A) > B");
   const [isTautology, setIsTautology] = useState(undefined);
+  const [explain, setExplain] = useState(false);
+  const toast = useToast();
 
   const { setTableHeader, setTableRows } = useApp();
 
@@ -75,6 +85,21 @@ export const Main = ({ onOpen }) => {
     setTableRows(row);
   };
 
+  const handleExplain = () => {
+    if (!isTautology)
+      toast({
+        title: "Não é Tautologia",
+        description: "A expressão digitada não é uma tautologia.",
+        status: "error",
+      });
+    else
+      toast({
+        title: "Tautologia",
+        description: "A expressão digitada é uma tautologia.",
+        status: "success",
+      });
+  };
+
   return (
     <Flex w="100%" h="100%" flexDir="column" align="center">
       <Flex align="center" gap="20px">
@@ -104,6 +129,8 @@ export const Main = ({ onOpen }) => {
       </Flex>
       {isTautology ? (
         <Flex
+          onClick={handleExplain}
+          _hover={{ opacity: "0.7", cursor: "pointer" }}
           borderRadius="10px"
           justify="center"
           p="20px"
@@ -114,12 +141,18 @@ export const Main = ({ onOpen }) => {
           <Text fontWeight="500">A expressão digitada é uma tautologia.</Text>
         </Flex>
       ) : isTautology === false ? (
-        <Flex borderRadius="10px"
-        justify="center"
-        p="20px"
-        mt="50px"
-        bgColor="#ccc"
-        w="300px"><Text fontWeight="500">Não é uma tautologia.</Text></Flex>
+        <Flex
+          onClick={handleExplain}
+          _hover={{ opacity: "0.7", cursor: "pointer" }}
+          borderRadius="10px"
+          justify="center"
+          p="20px"
+          mt="50px"
+          bgColor="#ccc"
+          w="300px"
+        >
+          <Text fontWeight="500">Não é uma tautologia.</Text>
+        </Flex>
       ) : null}
     </Flex>
   );
