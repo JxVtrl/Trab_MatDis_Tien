@@ -31,8 +31,7 @@ const ModalRules = ({ isOpen, onClose }) => {
             <Flex mb="10px" direction="column">
               <ListItem>
                 <Text fontWeight="600" as="h2">
-                  O usuário deve conseguir entrar com qualquer texto no input
-                  (Números e letras)
+                  O usuário deve inserir alguma expressão dentro da tabela.
                 </Text>
               </ListItem>
               <ListItem></ListItem>
@@ -46,7 +45,8 @@ const ModalRules = ({ isOpen, onClose }) => {
                 <ListItem display="flex" align="center">
                   <Flex align="center">
                     <ListIcon as={CheckCircleIcon} color="red.500" />
-                    <Text>{"valor /={2+3}"}</Text>
+                    <Text>{
+                      "Qualquer texto escrito que contenha números."}</Text>
                   </Flex>
                 </ListItem>
 
@@ -59,12 +59,12 @@ const ModalRules = ({ isOpen, onClose }) => {
                 <ListItem>
                   <Flex align="center">
                     <ListIcon as={CheckCircleIcon} color="green.500" />
-                    <Text>{"$valor /= {2 + 3}"}</Text>
+                    <Text>{"(A | B) & (!A) > B"}</Text>
                   </Flex>
                 </ListItem>
               </Flex>
 
-              <Flex gap="10px" direction="column">
+              {/* <Flex gap="10px" direction="column">
                 <Text fontWeight="bold" as="h2">
                   Exemplos de entrada | string
                 </Text>
@@ -90,7 +90,7 @@ const ModalRules = ({ isOpen, onClose }) => {
                     </Text>
                   </Flex>
                 </ListItem>
-              </Flex>
+              </Flex> */}
             </Flex>
           </List>
         </ModalBody>

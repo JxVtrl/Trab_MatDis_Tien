@@ -1,41 +1,16 @@
 import React, { useEffect } from "react";
-import {
-  Flex,
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  TableCaption,
-  TableContainer,
-} from "@chakra-ui/react";
+import { Flex, Table, Thead, Tbody, TableContainer } from "@chakra-ui/react";
 import { useApp } from "../../context";
+import "./styles.css";
 
 function VariableDisplay() {
   const { tableHeader, tableRows } = useApp();
-
-  useEffect(() => {
-    console.log("tableHeader", tableHeader);
-    console.log("tableRows", tableRows);
-  },[tableHeader, tableRows])
-
   return (
     <Flex w="100%" px="10px" borderRadius="10px">
       <TableContainer w="100%">
-        <Table variant="striped" w="100%">
-          <Thead>
-            {"tableHeader: " + tableHeader}
-          </Thead>
-          <Tbody>
-            {tableRows.map((row) => (
-              <Tr key={row.id}>
-                <Td>{row.id}</Td>
-                <Td>{row.type}</Td>
-                <Td>{row.expression}</Td>
-              </Tr>
-            ))}
-          </Tbody>
+        <Table variant="striped" w="100%" className="table">
+          <Thead dangerouslySetInnerHTML={{ __html: tableHeader }} />
+          <Tbody dangerouslySetInnerHTML={{ __html: tableRows }} />
         </Table>
       </TableContainer>
     </Flex>

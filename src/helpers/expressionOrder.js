@@ -1,4 +1,4 @@
-export function convertToRpn(data) {
+export function expressionOrder(data) {
   // eslint-disable-line no-unused-vars
   const queue = [];
   const stack = [];
@@ -43,7 +43,7 @@ export function convertToRpn(data) {
     queue.push(stack.pop());
   }
 
-  console.log(queue)
+  console.log(queue);
 
   return queue;
 }

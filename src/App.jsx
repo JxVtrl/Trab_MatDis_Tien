@@ -17,6 +17,7 @@ function App() {
         cursor="pointer"
         onClick={() => setHelpDrawer(!helpDrawer)}
         size="md"
+        _hover={{transform: "scale(1.2)"}}
         boxSize="6"
         position="fixed"
         bottom="20px"
