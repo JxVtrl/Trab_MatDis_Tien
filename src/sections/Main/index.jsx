@@ -57,7 +57,8 @@ export const Main = ({ onOpen }) => {
       let result = calculateExpression(order, vars);
 
       // Check if the expression is tautology
-      tautology = !!result;
+      if(tautology !== false)
+        tautology = !!result;
 
       // Add result to the array
       if (varList.length < MAX_VARS_TO_RENDER_TABLE)

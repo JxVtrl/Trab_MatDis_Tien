@@ -14,11 +14,10 @@ export function AppProvider({ children }) {
   const [tableRows, setTableRows] = useState("");
   const [expression, setExpression] = useState("(A | B) & (!A) > B");
 
-    const resetVariables = () => {
-      setTableRows([]);
-      setTableHeader("");
-    };
-
+  const resetVariables = () => {
+    setTableRows([]);
+    setTableHeader("");
+  };
 
   const value = {
     setHelpDrawer,
